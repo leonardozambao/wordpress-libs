@@ -1,0 +1,194 @@
+<?php
+
+/* Banners */
+$this->post_type->add_type('Banners', 'Banners', 'banners', false, 'dashicons-images-alt', array('title','thumbnail'));
+
+$this->metabox->set_meta_box(
+	'Dados do evento','dados_banner',array('banners')
+);
+$this->metabox->set_custom_field(
+	'Link','link_banner','text',null,'dados_banner'
+);
+$this->metabox->add_metas_box();
+$this->metabox->save_options();
+
+
+$this->admin->set_subpage_post_type(
+	'Opções','config','banners'
+);
+$this->admin->set_subpage_post_type(
+	'Opções2','config2','banners'
+);
+$this->admin->set_option(
+	'Titulo da home','titulo_home', 'text',null,'config','',0,'banners'
+);
+$this->admin->add_subpage_post_type();
+
+/* Banners */
+
+
+/* Criar options nas páginas no admin */
+$this->metabox->set_meta_box(
+	'Dados do evento','dados_evento',array('evento','post')
+);
+$this->metabox->set_custom_field(
+	'Titulo da home','titulo_home', 'text',null,'dados_evento'
+);
+$this->metabox->set_custom_field(
+	'Descrição da home','descricao_home', 'textarea',null,'dados_evento'
+);
+
+$this->metabox->set_custom_field(
+	'Tipo de home','tipo_home', 'select',
+	array(
+		array('text' => '(--Selecione--)','valor' => ''),
+		array('text' => 'Teste 1','valor' => 'teste1'),
+		array('text' => 'Teste 2','valor' => 'teste2'),
+	),
+	'dados_evento'
+);
+
+$this->metabox->set_custom_field(
+	'Exibir home','exibir_home', 'radio',
+	array(
+		array('text' => 'Sim','valor' => 'sim'),
+		array('text' => 'Não','valor' => 'nao'),
+	),
+	'dados_evento'
+);
+
+$this->metabox->set_custom_field(
+	'Habilitar home','gamilitar_home', 'checkbox',
+	array(
+		array('text' => 'Sim','valor' => 'sim'),
+		array('text' => 'Não','valor' => 'nao'),
+	),
+	'dados_evento'
+);
+
+
+$this->metabox->set_custom_field(
+	'Banner do Topo','banner_topo', 'imagem',null,'dados_evento'
+);
+
+$this->metabox->set_custom_field(
+	'Cor da home','cor_home', 'cor', null, 'dados_evento'
+);
+$this->metabox->set_custom_field(
+	'Descrição HTML','desc_person', 'editor', null, 'dados_evento'
+);
+
+$this->metabox->add_metas_box();
+$this->metabox->save_options();
+/* Criar options nas páginas no admin */
+
+
+/* Criar páginas no admin */
+$this->admin->set_page(
+	'Home','home','page.php', 'dashicons-nametag', 2,
+	array(
+		array('Sub home 1','home1','subpage.php', 'dashicons-nametag', 3)
+		,array('Sub home 2','home2','subpage.php', 'dashicons-nametag', 3)
+	)
+);
+$this->admin->set_page(
+	'Opções','config','page.php', 'dashicons-nametag', 3
+);
+/* Criar páginas no admin */
+
+/* Criar options nas páginas no admin */
+$this->admin->set_option(
+	'Titulo da home','titulo_home', 'text',null,'home'
+);
+$this->admin->set_option(
+	'Background do site','bakground_site', 'imagem',null,'home'
+);
+$this->admin->set_option(
+	'Descrição da home','descricao_home', 'textarea',null,'home'
+);
+
+$this->admin->set_option(
+	'Tipo de home','tipo_home_home', 'select',
+	array(
+		array('text' => '(--Selecione--)','valor' => ''),
+		array('text' => 'Teste 1','valor' => 'teste1'),
+		array('text' => 'Teste 2','valor' => 'teste2'),
+	),
+	'home'
+);
+
+$this->admin->set_option(
+	'Exibir home','exibir_home', 'radio',
+	array(
+		array('text' => 'Sim','valor' => 'sim'),
+		array('text' => 'Não','valor' => 'nao'),
+	),
+	'home'
+);
+
+$this->admin->set_option(
+	'Habilitar home','gamilitar_home', 'checkbox',array(
+		array('text' => 'Sim','valor' => 'sim'),
+		array('text' => 'Não','valor' => 'nao'),
+	),
+	'home'
+);
+$this->admin->set_option(
+	'Cor da home','cor_home', 'cor', null, 'home'
+);
+$this->admin->set_option(
+	'Descrição HTML','desc_person', 'editor', null, 'home'
+);
+/* Criar options nas páginas no admin */
+
+/* Adiciona página no admin com options setados */
+$this->admin->add_pages();
+/* Adiciona página no admin com options setados */
+
+
+
+
+/* Criar fields nas categorias */
+$this->category->set_custom_field(
+	'Titulo da home','titulo_home', 'text',null
+);
+$this->category->set_custom_field(
+	'Background do site','bakground_site', 'imagem',null
+);
+$this->category->set_custom_field(
+	'Descrição da home','descricao_home', 'textarea',null
+);
+
+$this->category->set_custom_field(
+	'Tipo de home','tipo_home_home', 'select',
+	array(
+		array('text' => '(--Selecione--)','valor' => ''),
+		array('text' => 'Teste 1','valor' => 'teste1'),
+		array('text' => 'Teste 2','valor' => 'teste2'),
+	)
+);
+
+$this->category->set_custom_field(
+	'Exibir home','exibir_home', 'radio',
+	array(
+		array('text' => 'Sim','valor' => 'sim'),
+		array('text' => 'Não','valor' => 'nao'),
+	)
+);
+
+$this->category->set_custom_field(
+	'Habilitar home','gamilitar_home', 'checkbox',array(
+		array('text' => 'Sim','valor' => 'sim'),
+		array('text' => 'Não','valor' => 'nao'),
+	)
+);
+$this->category->set_custom_field(
+	'Cor da home','cor_home', 'cor',null
+);
+$this->category->set_custom_field(
+	'Descrição HTML','desc_person', 'editor',null
+);
+$this->category->add_custom_fields();
+$this->category->save_custom_fields();
+/* Criar fields nas categorias */
+?>
