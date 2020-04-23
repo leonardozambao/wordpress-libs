@@ -8,6 +8,7 @@ require_once get_template_directory().'/lib/menus.class.php';
 require_once get_template_directory().'/lib/sidebar.class.php';
 require_once get_template_directory().'/lib/util.class.php';
 require_once get_template_directory().'/lib/filtro.class.php';
+require_once get_template_directory().'/lib/taxonomy.class.php';
 require_once get_template_directory().'/lib/custom-fields.class.php';
 require_once get_template_directory().'/lib/custom-fields-category.class.php';
 require_once get_template_directory().'/lib/admin.class.php';
@@ -47,6 +48,13 @@ add_action( 'rest_api_init', function () {
     register_rest_route( 'wp/v2', '/GetFazerPorVoce', array(
         'methods' => 'GET',
         'callback' => 'GetFazerPorVoce',
+    ) );
+} );
+
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'wp/v2', '/GetLinhaCompleta', array(
+        'methods' => 'GET',
+        'callback' => 'GetLinhaCompleta',
     ) );
 } );
 
@@ -102,9 +110,20 @@ function GetFazerPorVoce() {
     );
     $array = get_posts($args);
     foreach ($array as $key_ => $item) {
-        // $array[$key_]->link = get_post_meta($item->ID, 'link');
         $array[$key_]->thumbnail = get_the_post_thumbnail_url($item->ID,'thumb_267x150');
         $array[$key_]->nome = get_the_title($item->ID);
+    }
+return $array;
+}
+
+function GetLinhaCompleta() {
+    $array = get_terms(array(
+        'taxonomy' => 'categoria',
+        'hide_empty' => false,
+    ));
+    foreach ($array as $key_ => $item) {
+        $array[$key_]->thumbnail = wp_get_attachment_image_url(get_term_meta($item->term_id, 'thumbnail', true), 'full');
+        $array[$key_]->link = get_term_link($item->term_id, 'categoria');
     }
 return $array;
 }
